@@ -1,96 +1,123 @@
 # Image Clustering with ResNet50 and K-Means
 
-This project implements an image clustering system using features extracted by a pre-trained convolutional neural network (ResNet50) and the K-Means clustering algorithm. The code is designed to process a set of images, cluster them based on their visual content, and save the grouped images into separate folders.
+![Image Clustering](https://img.shields.io/badge/Image-Clustering-brightgreen)
+![Deep Learning](https://img.shields.io/badge/Deep-Learning-blue)
+![Python](https://img.shields.io/badge/Python-3.7+-orange)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0+-red)
 
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Requirements](#requirements)
-3. [Code Structure](#code-structure)
-4. [Main Functions](#main-functions)
-5. [Usage](#usage)
-6. [Possible Improvements](#possible-improvements)
+An efficient tool that uses ResNet50 CNN and K-means clustering to automatically organize and group similar images. This project leverages deep learning feature extraction and unsupervised learning to create meaningful image clusters without requiring labeled data.
 
 ## Overview
 
-The script performs the following main tasks:
+This project provides a streamlined approach to automatically organizing image collections by:
 
-1. Extracts features from images using ResNet50.
-2. Applies K-Means clustering to the extracted features.
-3. Organizes images into folders based on their assigned clusters.
+1. Using a pre-trained ResNet50 convolutional neural network to extract meaningful features from images
+2. Applying K-means clustering to group similar images based on these extracted features
+3. Organizing the clustered images into separate folders for easy review
+
+Ideal for photographers, digital asset managers, content creators, or any project requiring intelligent image organization.
+
+## Features
+
+- **Deep Feature Extraction**: Leverages ResNet50 CNN pre-trained on ImageNet to extract high-level image features
+- **Unsupervised Learning**: Groups similar images without requiring labeled data
+- **Customizable Clusters**: Adjust the number of clusters based on your specific needs
+- **Organized Output**: Automatically saves clustered images in separate directories
+- **Compatible with Various Image Formats**: Works with JPG, JPEG, PNG, BMP, and TIFF files
 
 ## Requirements
 
-The code requires the following Python libraries:
-
-- os
-- shutil
-- numpy
-- PIL (Python Imaging Library)
+- Python 3.7+
+- TensorFlow/Keras
 - scikit-learn
-- Keras
-- TensorFlow (as the backend for Keras)
+- NumPy
+- PIL (Python Imaging Library)
+- Google Colab (for the notebook implementation)
 
-Ensure you have these libraries installed before running the script.
+## Installation
 
-## Code Structure
+### Option 1: Run in Google Colab
+The easiest way to use this project is through Google Colab:
 
-The code is organized into several main functions:
+1. Upload the `Image_Clustering_ResNet50_KMeans.ipynb` notebook to Google Colab
+2. Mount your Google Drive (the notebook includes code for this)
+3. Upload your images to a folder in your Google Drive
+4. Update the input folder path in the notebook to point to your images
 
-1. `extract_features`: Extracts features from images.
-2. `cluster_images`: Applies K-Means clustering to the features.
-3. `save_clustered_images`: Saves the grouped images into folders.
-4. `find_and_cluster_images`: Main function that orchestrates the entire process.
+### Option 2: Local Installation
+To run locally:
 
-## Main Functions
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/image-clustering-resnet50-kmeans.git
+cd image-clustering-resnet50-kmeans
 
-### `extract_features(folder_path, model, input_shape=(224, 224))`
-
-This function iterates through a directory of images and extracts features using a pre-trained model (ResNet50).
-
-- **Parameters**:
-  - `folder_path`: Path to the directory containing the images.
-  - `model`: Pre-trained Keras model for feature extraction.
-  - `input_shape`: Input size required by the model (default 224x224).
-
-- **Returns**:
-  - A NumPy array of extracted features.
-  - A list of corresponding file paths.
-
-### `cluster_images(features, n_clusters=5)`
-
-Applies the K-Means algorithm to the extracted features to group the images.
-
-- **Parameters**:
-  - `features`: NumPy array of extracted features.
-  - `n_clusters`: Number of clusters to form (default is 5).
-
-- **Returns**:
-  - Cluster labels assigned to each image.
-
-### `save_clustered_images(labels, file_paths, output_folder)`
-
-Saves the images into separate folders based on their cluster labels.
-
-- **Parameters**:
-  - `labels`: Cluster labels assigned to each image.
-  - `file_paths`: List of file paths of the original images.
-  - `output_folder`: Directory where the cluster folders will be saved.
-
-### `find_and_cluster_images(input_folder, output_folder, n_clusters=5)`
-
-Main function that coordinates the entire image clustering process.
-
-- **Parameters**:
-  - `input_folder`: Directory containing the input images.
-  - `output_folder`: Directory where the results will be saved.
-  - `n_clusters`: Number of clusters to form (default is 5).
+# Install required packages
+pip install tensorflow scikit-learn numpy pillow
+```
 
 ## Usage
 
-To use this script, simply define the input and output paths, and call the main function:
+1. **Prepare your images**
+   - Place all images you want to cluster in a single directory
 
-```python
-input_folder = '/path/to/your/images/'
-output_folder = '/path/for/results/'
-find_and_cluster_images(input_folder, output_folder, n_clusters=7)
+2. **Set paths and parameters**
+   - Update the `input_folder` path to your images directory
+   - Set `output_folder` to your desired destination
+   - Adjust `n_clusters` to the number of groups you want to create
+
+3. **Run the clustering**
+   ```python
+   input_folder = '/path/to/your/images'
+   output_folder = '/path/to/output/directory'
+   
+   find_and_cluster_images(input_folder, output_folder, n_clusters=5)
+   ```
+
+4. **Review results**
+   - Clustered images will be organized in numbered directories inside your output folder
+
+## How It Works
+
+1. **Feature Extraction**: The pre-trained ResNet50 model (without the classification layer) processes each image to extract a 2048-dimensional feature vector that represents high-level image characteristics.
+
+2. **Dimensionality Reduction**: These feature vectors capture the essence of each image in a way that's much more meaningful than raw pixel values.
+
+3. **K-means Clustering**: The extracted features are grouped using K-means clustering, which finds natural groupings in the data.
+
+4. **Output Organization**: Images are copied to cluster-specific folders based on their assigned cluster.
+
+## Customization
+
+- **Change Feature Extractor**: You can replace ResNet50 with other models like VGG16, InceptionV3, or EfficientNet
+- **Clustering Algorithm**: K-means can be replaced with other clustering algorithms like DBSCAN or hierarchical clustering
+- **Preprocessing**: Add custom preprocessing steps for your specific image collection
+
+## Performance Notes
+
+- Processing time depends on the number and size of images
+- For large image collections, consider processing in batches
+- The notebook is optimized to run on Google Colab's GPU for faster processing
+
+## Limitations
+
+- K-means requires specifying the number of clusters in advance
+- Very large image collections may require additional optimization
+- The quality of clustering depends on the diversity and characteristics of your image collection
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [ResNet50](https://keras.io/api/applications/resnet/) pre-trained model from Keras Applications
+- Inspired by various image clustering techniques in computer vision
+
+## Author
+
+Mateo Vergara
+
+---
+
+If you find this project useful, please consider starring the repository on GitHub.
