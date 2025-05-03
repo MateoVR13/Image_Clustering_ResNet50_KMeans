@@ -1,10 +1,5 @@
 # Image Clustering with ResNet50 and K-Means
 
-![Image Clustering](https://img.shields.io/badge/Image-Clustering-brightgreen)
-![Deep Learning](https://img.shields.io/badge/Deep-Learning-blue)
-![Python](https://img.shields.io/badge/Python-3.7+-orange)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0+-red)
-
 An efficient tool that uses ResNet50 CNN and K-means clustering to automatically organize and group similar images. This project leverages deep learning feature extraction and unsupervised learning to create meaningful image clusters without requiring labeled data.
 
 ## Overview
@@ -39,7 +34,7 @@ Ideal for photographers, digital asset managers, content creators, or any projec
 ### Option 1: Run in Google Colab
 The easiest way to use this project is through Google Colab:
 
-1. Upload the `Image_Clustering_ResNet50_KMeans.ipynb` notebook to Google Colab
+1. Upload the `Image_Clustering_ResNet50_KMeans.ipynb` notebook to Google Colab or go to https://colab.research.google.com/drive/1_No7tWnqRGWWVMx5_4lkNj4K8pdLBl59?usp=sharing
 2. Mount your Google Drive (the notebook includes code for this)
 3. Upload your images to a folder in your Google Drive
 4. Update the input folder path in the notebook to point to your images
@@ -95,7 +90,7 @@ pip install tensorflow scikit-learn numpy pillow
 
 ## Performance Notes
 
-- Processing time depends on the number and size of images
+- Processing time depends on the number, size of images and GPU capacity
 - For large image collections, consider processing in batches
 - The notebook is optimized to run on Google Colab's GPU for faster processing
 
